@@ -1,0 +1,22 @@
+# 立面智能体 · 依赖清单
+# 安装：pip install -r requirements.txt
+
+# 编排层
+langgraph>=0.2.60
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+
+# MCP 接入（把 MCP 工具变成 LangChain 工具）
+langchain-mcp-adapters>=0.1.0
+mcp>=1.0.0
+
+# 配置与工具
+python-dotenv>=1.0.0
+
+# 检查点（可恢复执行）
+langgraph-checkpoint-sqlite>=2.0.0
+
+# 测量与几何（复用已有工具链时也需要）
+numpy>=1.26.0
+Pillow>=10.0.0
