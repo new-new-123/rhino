@@ -55,8 +55,10 @@ class Settings:
     model_build: str = "claude-sonnet-4-5"
 
     # ── Rhino 官方 MCP ──────────────────────────────────────────
-    rhino_mcp_command: str = "uvx"
-    rhino_mcp_args: list = field(default_factory=lambda: ["rhinomcp@latest"])
+    rhino_mcp_transport: str = "streamable_http"  # stdio | streamable_http | sse
+    rhino_mcp_url: str = "http://localhost:10500/"  # HTTP 模式下的地址
+    rhino_mcp_command: str = "uvx"  # stdio 模式下的命令
+    rhino_mcp_args: list = field(default_factory=lambda: ["rhinomcp@latest"])  # stdio 模式下的参数
 
     # ── facade MCP（我们的工具服务）─────────────────────────────
     facade_mcp_command: str = "python"
@@ -112,6 +114,8 @@ def load_settings(env_file: str | os.PathLike | None = None) -> Settings:
         llm_api_key=os.getenv("LLM_API_KEY", "").strip(),
         model_main=os.getenv("MODEL_MAIN", "gemini-2.5-flash").strip(),
         model_build=os.getenv("MODEL_BUILD", "claude-sonnet-4-5").strip(),
+        rhino_mcp_transport=os.getenv("RHINO_MCP_TRANSPORT", "streamable_http").strip(),
+        rhino_mcp_url=os.getenv("RHINO_MCP_URL", "http://localhost:10500/").strip(),
         rhino_mcp_command=os.getenv("RHINO_MCP_COMMAND", "uvx").strip(),
         rhino_mcp_args=_as_json_list(os.getenv("RHINO_MCP_ARGS"), ["rhinomcp@latest"]),
         facade_mcp_command=os.getenv("FACADE_MCP_COMMAND", "python").strip(),
